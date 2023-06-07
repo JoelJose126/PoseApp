@@ -1,7 +1,7 @@
 import cv2
 import streamlit as st
 import numpy as np
-import pickle
+
 import mediapipe as mp
 
 
@@ -14,8 +14,7 @@ def main():
     # Set video width and height
     
     
-    with open(r"G:\Project\Self video Samples\Bicep curl\Bcurl_cvs.pkl", 'rb') as f:
-        model = pickle.load(f)
+   
     mp_pose = mp.solutions.pose
     mp_drawing = mp.solutions.drawing_utils
     pose = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
@@ -53,10 +52,7 @@ def main():
 
 
 
-                landmarks = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten()
-                predicted_class = model.predict([landmarks])[0]
-                class_probability = model.predict_proba([landmarks])[0]
-                current_class = pose_classes[predicted_class]
+                
 
     # Render landmarks on the frame
                 mp_drawing.draw_landmarks(frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
